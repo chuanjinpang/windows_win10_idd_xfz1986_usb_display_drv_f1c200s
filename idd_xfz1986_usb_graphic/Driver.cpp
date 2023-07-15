@@ -554,11 +554,13 @@ void SwapChainProcessor::RunCore()
             DXGI_MAPPED_RECT mappedRect;
             hr = hStagingSurf->Map(&mappedRect, DXGI_MAP_READ);
             if(SUCCEEDED(hr)) {
-
+#if 0
                 if(640 == frameDescriptor.Width) {
                     scale_for_320x240((uint32_t *)this->fb_buf, (uint32_t *)mappedRect.pBits, mappedRect.Pitch / 4, frameDescriptor.Width * frameDescriptor.Height);
                     line_width = mappedRect.Pitch / 8;
-                } else {
+                } else
+#endif
+				{
                     memcpy(this->fb_buf, mappedRect.pBits, frameDescriptor.Width * frameDescriptor.Height * 4);
                     line_width = mappedRect.Pitch / 4;
                 }
